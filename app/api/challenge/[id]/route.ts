@@ -1,7 +1,6 @@
 import type { NextRequest } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../auth/[...nextauth]/route";
-import { access } from "fs";
 
 interface Params {
   id: string;
