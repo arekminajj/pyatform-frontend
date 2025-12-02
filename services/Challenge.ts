@@ -1,4 +1,4 @@
-import { Challenge } from "@/app/types/Challange";
+import { Challenge } from "@/types/Challange";
 
 export async function getChallenge(id: number, token: string): Promise<Challenge> {
     const res = await fetch(`${process.env.BACKEND_BASE_URL}/api/challenge/${id}` , {

@@ -1,5 +1,5 @@
 import PyatformEditor from "@/components/PyatformEditor";
-import { Challenge } from "@/app/types/Challange";
+import { Challenge } from "@/types/Challange";
 import { getChallenge } from "@/services/Challenge";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
