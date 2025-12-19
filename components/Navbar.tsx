@@ -21,6 +21,11 @@ export default function Navbar() {
                 Ranking
               </a>
             </li>
+            <li className="flex items-center p-1 text-sm gap-x-2 text-slate-600">
+              <a href="/api/auth/signin" className="flex items-center">
+                Sign in
+              </a>
+            </li>
           </ul>
         </div>
       </div>
