@@ -21,13 +21,11 @@ export async function POST(req: NextRequest) {
     method: "POST",
   });
 
+  const data = await res.json()
   if (res.status >= 200 && res.status <= 300) {
-    return Response.json({
-      status: res.status,
-      message: "Solution added",
-    });
+    return Response.json(data);
   }
 
-  const data = await res.json();
-  return Response.json({ data }, { status: 400 });
+  const otherRes = await res.json();
+  return Response.json({ otherRes }, { status: 400 });
 }

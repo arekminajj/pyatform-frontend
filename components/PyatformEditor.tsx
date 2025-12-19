@@ -4,11 +4,12 @@ import { useState, useRef } from "react";
 import Editor, { Monaco, OnMount } from "@monaco-editor/react";
 
 interface Props {
-  defaultCode: string | null;
+  code: string | null;
+  onChange: (value: string) => void;
 }
 
-export default function PyatformEditor({ defaultCode }: Props) {
-  const [code, setCode] = useState<string>(defaultCode ?? "");
+export default function PyatformEditor({ code, onChange }: Props) {
+  const [editorValue, setEditorValue] = useState<string>(code ?? "");
 
   const editorRef = useRef<any>(null);
 
@@ -23,10 +24,10 @@ export default function PyatformEditor({ defaultCode }: Props) {
           <Editor
             height="50vh"
             defaultLanguage="python"
-            value={code}
+            value={editorValue}
             theme="vs-dark"
             onMount={handleEditorMount}
-            onChange={(value) => setCode(value ?? "")}
+            onChange={(value) => onChange(value ?? "")}
             options={{
               minimap: { enabled: false },
               fontSize: 14,

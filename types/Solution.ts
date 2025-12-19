@@ -6,4 +6,5 @@ export interface Solution {
     executionTimeMs: number | null;
     hasPassedTests: boolean | null;
     submissionTime: Date | null;
+    output: string | null;
 }
