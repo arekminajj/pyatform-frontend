@@ -1,5 +1,8 @@
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const session = await getServerSession(authOptions);
   return (
     <nav className="block w-full px-4 py-2 bg-white shadow-md lg:px-8 lg:py-3">
       <div className="container flex flex-wrap items-center justify-between mx-auto text-slate-800">
@@ -22,9 +25,15 @@ export default function Navbar() {
               </a>
             </li>
             <li className="flex items-center p-1 text-sm gap-x-2 text-slate-600">
-              <a href="/api/auth/signin" className="flex items-center">
-                Sign in
-              </a>
+              {!session ? (
+                <a href="/api/auth/signin" className="flex items-center">
+                  Sign in
+                </a>
+              ) : (
+                <a href="/api/auth/signout" className="flex items-center">
+                  Sign out
+                </a>
+              )}
             </li>
           </ul>
         </div>
