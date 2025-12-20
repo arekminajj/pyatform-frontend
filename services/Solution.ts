@@ -43,3 +43,20 @@ export async function addSolution(
     const solution: Solution = await res.json();
     return solution;
 }
+
+export async function getAllSolutions(token: string): Promise<Solution[]> {
+    const res = await fetch(`${process.env.BACKEND_BASE_URL}/api/solution`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(errorText);
+    }
+
+    const data: Solution[] = await res.json();
+    return data;
+}
