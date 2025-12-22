@@ -7,7 +7,8 @@ declare module "next-auth" {
     expiresIn: number | null;
     user: {
       email?: string | null;
-      name?: string | null;
+      bio?: string | null;
+      profilePictureUrl?: string | null;
     };
   }
 

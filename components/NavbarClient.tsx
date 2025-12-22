@@ -64,7 +64,7 @@ export default function Navbar({ session }: { session: Session | null }) {
                 <>
                   <MenuButton className="flex items-center">
                     <img
-                      src="/Default_pfp.jpg"
+                      src={session.user.profilePictureUrl ?? "/Default_pfp.jpg"}
                       className="size-8 rounded-full"
                     />
                   </MenuButton>

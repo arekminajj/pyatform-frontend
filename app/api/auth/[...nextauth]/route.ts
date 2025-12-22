@@ -1,6 +1,8 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+import { getCurrentUserProfile } from "@/services/User";
+
 interface authResult {
   tokenType: string;
   accessToken: string;
@@ -132,6 +134,13 @@ export const authOptions: AuthOptions = {
       session.accessToken = token.accessToken as string;
       session.refreshToken = token.refreshToken as string;
       session.expiresIn = token.expiresIn as number;
+
+      const currentUser = await getCurrentUserProfile(session.accessToken);
+
+      session.user.bio = currentUser.bio;
+      session.user.email = currentUser.email;
+      session.user.profilePictureUrl = currentUser.profilePictureUrl;
+
       return session;
     },
   },
