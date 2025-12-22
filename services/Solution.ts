@@ -1,7 +1,7 @@
 import { Solution } from "@/types/Solution";
 import { addSolutionDto } from "@/types/dto/addSolutionDto";
 
-export async function getSolution(
+export async function getSolutionById(
   id: number,
   token: string
 ): Promise<Solution> {
@@ -67,4 +67,3 @@ export async function getSolutions(token: string, challengeId: number | null | u
     const data: Solution[] = await res.json();
     return data;
 }
-
