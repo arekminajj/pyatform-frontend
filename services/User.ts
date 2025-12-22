@@ -49,3 +49,28 @@ export async function updateUserProfile(
 
   return user;
 }
+
+export async function uploadProfilePicture(
+  token: string,
+  file: File
+): Promise<void> {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const res = await fetch(
+    `${process.env.BACKEND_BASE_URL}/api/user/upload-pfp`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    }
+  );
+
+  if (!res.ok) {
+    let message = "Failed to upload profile picture";
+
+    throw new Error(message);
+  }
+}

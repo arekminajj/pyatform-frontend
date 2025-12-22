@@ -22,18 +22,43 @@ export default async function EditProfilePage() {
         </h1>
 
         <form
+          action="/api/user/upload-pfp"
+          method="POST"
+          encType="multipart/form-data"
+          className="flex flex-col items-center gap-4 mb-8"
+        >
+          <img
+            src={user.profilePictureUrl ?? "/Default_pfp.jpg"}
+            alt="Profile Picture"
+            className="w-40 h-40 rounded-full object-cover border-4 border-indigo-500"
+          />
+
+          <input
+            type="file"
+            name="file"
+            accept="image/*"
+            className="block w-full text-sm text-gray-700 dark:text-gray-300
+               file:mr-4 file:py-2 file:px-4
+               file:rounded-lg file:border-0
+               file:text-sm file:font-semibold
+               file:bg-indigo-600 file:text-white
+               hover:file:bg-indigo-700"
+            required
+          />
+
+          <button
+            type="submit"
+            className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+          >
+            Upload Picture
+          </button>
+        </form>
+
+        <form
           action="/api/user/update"
           method="POST"
           className="flex flex-col gap-6"
         >
-          <div className="flex flex-col items-center">
-            <img
-              src={user.profilePictureUrl ?? "/Default_pfp.jpg"}
-              alt="Profile Picture"
-              className="w-40 h-40 rounded-full object-cover border-4 border-indigo-500 mb-4"
-            />
-          </div>
-
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
               Email
