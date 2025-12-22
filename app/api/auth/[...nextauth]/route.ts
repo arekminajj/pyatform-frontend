@@ -33,6 +33,33 @@ const authenticateUser = async (
   }
 };
 
+const refreshToken = async (
+  accessToken: string,
+  refreshToken: string
+): Promise<authResult | null> => {
+  const BASE_URL = process.env.BACKEND_BASE_URL;
+  try {
+    const res = await fetch(BASE_URL + "/refresh", {
+      method: "POST",
+      headers: { "Content-type": "application/json", "Authorization": `Bearer ${accessToken}` },
+      body: JSON.stringify({ refreshToken }),
+    });
+
+    if (!res.ok) {
+      console.error("Refresh failed: ", await res.text());
+      return null;
+    }
+
+    const data: authResult = await res.json();
+
+
+    return data;
+  } catch (err) {
+    console.error("Authentication error:", err);
+    return null;
+  }
+};
+
 export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
@@ -77,10 +104,28 @@ export const authOptions: AuthOptions = {
       if (user) {
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
-        if (user.expiresIn)
-          token.expiresIn = Date.now() + user.expiresIn * 1000;
+        token.expiresIn = Date.now() + user.expiresIn! * 1000;
+        return token;
       }
-      return token;
+
+      if (token.expiresIn && Date.now() < token.expiresIn) {
+        return token;
+      }
+
+      try {
+        const refreshed = await refreshToken(token.accessToken as string, token.refreshToken as string);
+
+        if (!refreshed) throw new Error("Refresh failed");
+
+        token.accessToken = refreshed.accessToken;
+        token.refreshToken = refreshed.refreshToken;
+        token.expiresIn = Date.now() + refreshed.expiresIn * 1000;
+
+        return token;
+      } catch (error) {
+        console.error(error);
+        return token;
+      }
     },
 
     async session({ session, token }) {
@@ -91,8 +136,8 @@ export const authOptions: AuthOptions = {
     },
   },
   pages: {
-    signIn: "/auth/signin"
-  }
+    signIn: "/auth/signin",
+  },
 };
 
 const handler = NextAuth(authOptions);
