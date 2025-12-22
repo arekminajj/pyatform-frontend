@@ -39,7 +39,9 @@ export default function ChallengeWorkspace({ defaultCode, logs, challengeId }: P
       }
 
       const data: Solution = await res.json();
-      setResponseLogs(data.output);
+      console.log(data)
+      if (data.testResult)
+        setResponseLogs(data.testResult.output);
       if (!data.hasPassedTests) data.hasPassedTests = false
       setIsSuccess(data.hasPassedTests)
     } catch (err) {
