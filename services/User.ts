@@ -1,5 +1,6 @@
 import { updateUserProfileDto } from "@/types/dto/updateUserProfileDto";
 import { User } from "@/types/User";
+import { UserRanking } from "@/types/UserRanking";
 
 export async function getCurrentUserProfile(
   token: string
@@ -97,4 +98,27 @@ export async function uploadProfilePicture(
 
     throw new Error(message);
   }
+}
+
+export async function getUserRanking(
+  token: string
+): Promise<UserRanking[]> {
+  const res = await fetch(
+    `${process.env.BACKEND_BASE_URL}/api/user/top`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(errorText);
+  }
+
+  const ranking: UserRanking[] = await res.json();
+
+  return ranking;
 }
