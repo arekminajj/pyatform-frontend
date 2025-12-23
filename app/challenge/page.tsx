@@ -30,17 +30,17 @@ export default async function ChallengePage({ params }: Props) {
             <a
               key={c.id}
               href={`/challenge/${c.id}`}
-              className="
-                block p-5 rounded-xl shadow-sm border
-                bg-white dark:bg-gray-800
-                border-gray-200 dark:border-gray-700
-                hover:border-indigo-500 hover:shadow-md
-                transition-all
-              "
+              className="relative block p-5 rounded-xl shadow-sm border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-indigo-500 hover:shadow-md transition-all"
             >
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {c.title ?? "Untitled challenge"}
               </h2>
+
+              {c.isCompletedByUser && (
+                <span className="absolute top-3 right-3 px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 dark:bg-green-700 dark:text-green-100 rounded-full">
+                  Completed
+                </span>
+              )}
 
               <div className="mt-3 text-sm text-indigo-600 dark:text-indigo-400">
                 View details

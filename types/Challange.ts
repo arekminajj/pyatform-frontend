@@ -7,4 +7,5 @@ export interface Challenge {
     timeLimitMs: number | null;
     memoryLimitKb: number | null;
     userId: string | null;
+    isCompletedByUser: boolean | null;
 }
