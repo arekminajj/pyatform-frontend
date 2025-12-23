@@ -6,7 +6,21 @@ It allows users to write code, submit solutions, view test results, track progre
 The frontend communicates with the [.NET backend API](https://github.com/arekminajj/pyatform-backend)
 ## Getting Started
 
-First, run the development server:
+First create `.env` file with your environmental variables:
+
+```
+NEXTAUTH_SECRET=<your-nextauth-secret>
+BACKEND_BASE_URL=http://localhost:8080
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+```
+
+- `NEXTAUTH_SECRET` is used for securing JWT tokens in authentication. You can generate a random secret using:
+
+    ```bash
+    openssl rand -base64 32
+    ```
+
+Then, run the development server:
 
 ```bash
 npm run dev
