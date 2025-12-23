@@ -2,13 +2,12 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 import type { NextRequest } from "next/server";
 import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
 
   if (!session?.accessToken) {
-    redirect("/api/auth/signin");
+    return new Response("Unauthorized", { status: 401 });
   }
 
   const body = await req.json();

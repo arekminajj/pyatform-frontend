@@ -6,6 +6,7 @@ declare module "next-auth" {
     refreshToken: string | null;
     expiresIn: number | null;
     user: {
+      id?: string | null;
       email?: string | null;
       bio?: string | null;
       profilePictureUrl?: string | null;

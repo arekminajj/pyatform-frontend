@@ -1,6 +1,7 @@
 import { Solution } from "@/types/Solution";
 import { getSolutions } from "@/services/Solution";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { dateToString } from "@/ common/dateParser";
 
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -8,8 +9,6 @@ import { redirect } from "next/navigation";
 interface Props {
   params: { challengeId: number | null; userId: string | null };
 }
-
-//TODO: ADD FILTERING, AFTER HANDLING ID SAVINGN IN SESSION
 
 export default async function SolutionPage({ params }: Props) {
   const session = await getServerSession(authOptions);
@@ -46,22 +45,19 @@ export default async function SolutionPage({ params }: Props) {
             >
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {s.submissionTime
-                  ? new Date(s.submissionTime).toLocaleString(undefined, {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })
+                  ? dateToString(s.submissionTime)
                   : "Unknown solution"}
               </h2>
-            
-              {s.hasPassedTests ? <div className="mt-3 text-sm text-green-600 dark:text-green-400">
-                Tests passed!
-              </div> : <div className="mt-3 text-sm text-red-600 dark:text-red-400">
-                Tests failed
-              </div>}
-              
+
+              {s.hasPassedTests ? (
+                <div className="mt-3 text-sm text-green-600 dark:text-green-400">
+                  Tests passed!
+                </div>
+              ) : (
+                <div className="mt-3 text-sm text-red-600 dark:text-red-400">
+                  Tests failed
+                </div>
+              )}
             </a>
           ))}
         </div>

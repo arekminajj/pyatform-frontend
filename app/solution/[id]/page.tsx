@@ -4,6 +4,7 @@ import { Solution } from "@/types/Solution";
 import { getSolutionById } from "@/services/Solution";
 import { User } from "@/types/User";
 import { getUserProfile } from "@/services/User";
+import { dateToString } from "@/ common/dateParser";
 
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -14,7 +15,6 @@ import { Prism } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Challenge } from "@/types/Challange";
 import { getChallenge } from "@/services/Challenge";
-
 
 interface Props {
   params: { id: string };
@@ -39,7 +39,10 @@ export default async function SolutionPage({ params }: Props) {
     solution.userId!
   );
 
-  const challenge: Challenge = await getChallenge(solution.challengeId!, session.accessToken!);
+  const challenge: Challenge = await getChallenge(
+    solution.challengeId!,
+    session.accessToken!
+  );
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-200 py-12 px-4 sm:px-6 lg:px-8">
@@ -57,17 +60,11 @@ export default async function SolutionPage({ params }: Props) {
             <p className="text-gray-400 text-sm">
               Submitted:{" "}
               {solution.submissionTime
-                ? new Date(solution.submissionTime).toLocaleString(undefined, {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })
+                ? dateToString(solution.submissionTime)
                 : ""}
             </p>
             <p className="text-gray-400 text-sm">
-              Execution Time: {solution.testResult!.executionTimeMs ?? "N/A"} ms |{" "}
+              {solution.testResult!.executionTimeMs ? "Execution Time: " + solution.testResult!.executionTimeMs + " ms" : ""}
             </p>
             {solution.hasPassedTests ? (
               <p className="text-green-400 text-sm">Tests passsed!</p>
@@ -79,20 +76,16 @@ export default async function SolutionPage({ params }: Props) {
 
         <div className="bg-gray-800 rounded-lg p-6 overflow-auto">
           <h2 className="text-lg font-semibold mb-2">Solution Code</h2>
-          <Prism
-            language="python"
-            style={oneDark}
-            className="rounded-lg"
-          >
+          <Prism language="python" style={oneDark} className="rounded-lg">
             {solution.content || ""}
           </Prism>
         </div>
 
         <div className="bg-gray-800 rounded-lg p-6">
-            <h2 className="text-lg font-semibold mb-2">Problem</h2>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {challenge.content}
-            </ReactMarkdown>
+          <h2 className="text-lg font-semibold mb-2">Problem</h2>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {challenge.content}
+          </ReactMarkdown>
         </div>
 
         {solution.testResult && (

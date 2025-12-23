@@ -1,5 +1,5 @@
 import ChallengeWorkspace from "@/components/ChallengeWorkspace";
-import SolutionTestLogs from "@/components/SolutionTestLogs";
+import ChallengeSolutions from "@/components/ChallengeSolutions";
 import { Challenge } from "@/types/Challange";
 import { getChallenge } from "@/services/Challenge";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -9,6 +9,8 @@ import { redirect } from "next/navigation";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Solution } from "@/types/Solution";
+import { getSolutions } from "@/services/Solution";
 
 interface Props {
   params: { id: string };
@@ -28,6 +30,12 @@ export default async function ChallengePage({ params }: Props) {
     session.accessToken
   );
 
+  const solutions: Solution[] = await getSolutions(
+    session.accessToken,
+    challenge.id,
+    session.user.id
+  );
+
   const { title, content, templateCode, timeLimitMs, memoryLimitKb } =
     challenge;
 
@@ -39,7 +47,7 @@ export default async function ChallengePage({ params }: Props) {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="p-6 border-b lg:border-b-0 lg:border-r border-gray-700 bg-gray-850">
+          <div className="p-6 border-b lg:border-b-0 lg:border-r border-gray-700 bg-gray-850 flex flex-col gap-6">
             <h3 className="text-xl font-semibold text-gray-100 mb-4">
               Problem Description
             </h3>
@@ -68,6 +76,10 @@ export default async function ChallengePage({ params }: Props) {
                   {memoryLimitKb ? `${memoryLimitKb} KB` : "N/A"}
                 </span>
               </div>
+            </div>
+
+            <div className="mt-6">
+              <ChallengeSolutions solutions={solutions} />
             </div>
           </div>
 

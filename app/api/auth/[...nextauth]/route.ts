@@ -137,6 +137,7 @@ export const authOptions: AuthOptions = {
 
       const currentUser = await getCurrentUserProfile(session.accessToken);
 
+      session.user.id = currentUser.id;
       session.user.bio = currentUser.bio;
       session.user.email = currentUser.email;
       session.user.profilePictureUrl = currentUser.profilePictureUrl;
