@@ -19,8 +19,8 @@ export async function getChallenge(id: number, token: string): Promise<Challenge
 }
 
 
-export async function getAllChallenges(token: string): Promise<Challenge[]> {
-    const res = await fetch(`${process.env.BACKEND_BASE_URL}/api/challenge`, {
+export async function getAllChallenges(token: string, userId: string | null = null): Promise<Challenge[]> {
+    const res = await fetch(`${process.env.BACKEND_BASE_URL}/api/challenge?userId=${userId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
