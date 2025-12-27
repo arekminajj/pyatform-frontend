@@ -1,7 +1,7 @@
 import { Solution } from "@/types/Solution";
 import { getSolutions } from "@/lib/Solution";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { dateToString } from "@/ common/dateParser";
+import { dateToString } from "@/utils/dateParser";
 
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";

@@ -1,6 +1,6 @@
 
 import { Solution } from "@/types/Solution";
-import { dateToString } from "@/ common/dateParser";
+import { dateToString } from "@/utils/dateParser";
 
 import { Prism } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";

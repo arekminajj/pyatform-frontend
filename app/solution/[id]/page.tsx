@@ -4,7 +4,7 @@ import { Solution } from "@/types/Solution";
 import { getSolutionById } from "@/lib/Solution";
 import { User } from "@/types/User";
 import { getUserProfile } from "@/lib/User";
-import { dateToString } from "@/ common/dateParser";
+import { dateToString } from "@/utils/dateParser";
 
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
