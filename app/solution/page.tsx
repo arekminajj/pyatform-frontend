@@ -1,5 +1,5 @@
 import { Solution } from "@/types/Solution";
-import { getSolutions } from "@/services/Solution";
+import { getSolutions } from "@/lib/Solution";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { dateToString } from "@/ common/dateParser";
 

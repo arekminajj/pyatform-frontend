@@ -1,7 +1,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import type { NextRequest } from "next/server";
-import { uploadProfilePicture } from "@/services/User";
+import { uploadProfilePicture } from "@/lib/User";
 
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);

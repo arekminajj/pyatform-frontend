@@ -1,7 +1,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Challenge } from "@/types/Challange";
-import { getAllChallenges } from "@/services/Challenge";
-import { getUserProfile } from "@/services/User";
+import { getAllChallenges } from "@/lib/Challenge";
+import { getUserProfile } from "@/lib/User";
 import Challenges from "@/components/Chllenges";
 
 import { getServerSession } from "next-auth";

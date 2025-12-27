@@ -1,5 +1,5 @@
 import { Challenge } from "@/types/Challange";
-import { getAllChallenges } from "@/services/Challenge";
+import { getAllChallenges } from "@/lib/Challenge";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 import { getServerSession } from "next-auth";

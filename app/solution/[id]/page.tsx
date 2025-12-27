@@ -1,9 +1,9 @@
 import SolutionTestLogs from "@/components/SolutionTestLogs";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Solution } from "@/types/Solution";
-import { getSolutionById } from "@/services/Solution";
+import { getSolutionById } from "@/lib/Solution";
 import { User } from "@/types/User";
-import { getUserProfile } from "@/services/User";
+import { getUserProfile } from "@/lib/User";
 import { dateToString } from "@/ common/dateParser";
 
 import { getServerSession } from "next-auth";
@@ -14,7 +14,7 @@ import remarkGfm from "remark-gfm";
 import { Prism } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Challenge } from "@/types/Challange";
-import { getChallenge } from "@/services/Challenge";
+import { getChallenge } from "@/lib/Challenge";
 
 interface Props {
   params: { id: string };

@@ -1,7 +1,7 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import { getCurrentUserProfile } from "@/services/User";
+import { getCurrentUserProfile } from "@/lib/User";
 
 interface authResult {
   tokenType: string;

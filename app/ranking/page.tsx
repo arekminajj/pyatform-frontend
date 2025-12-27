@@ -1,6 +1,6 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { UserRanking } from "@/types/UserRanking";
-import { getUserRanking } from "@/services/User";
+import { getUserRanking } from "@/lib/User";
 
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";

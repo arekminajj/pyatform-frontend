@@ -1,7 +1,7 @@
 import ChallengeWorkspace from "@/components/ChallengeWorkspace";
 import ChallengeSolutions from "@/components/ChallengeSolutions";
 import { Challenge } from "@/types/Challange";
-import { getChallenge } from "@/services/Challenge";
+import { getChallenge } from "@/lib/Challenge";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 import { getServerSession } from "next-auth";
@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Solution } from "@/types/Solution";
-import { getSolutions } from "@/services/Solution";
+import { getSolutions } from "@/lib/Solution";
 
 interface Props {
   params: { id: string };
