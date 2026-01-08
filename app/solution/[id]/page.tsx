@@ -1,12 +1,11 @@
 import SolutionTestLogs from "@/components/SolutionTestLogs";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Solution } from "@/types/Solution";
 import { getSolutionById } from "@/lib/Solution";
 import { User } from "@/types/User";
 import { getUserProfile } from "@/lib/User";
 import { dateToString } from "@/utils/dateParser";
+import { auth } from "@/auth";
 
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 import ReactMarkdown from "react-markdown";
@@ -23,7 +22,7 @@ interface Props {
 export default async function SolutionPage({ params }: Props) {
   const { id } = await params;
 
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session?.accessToken) {
     redirect("/api/auth/signin");

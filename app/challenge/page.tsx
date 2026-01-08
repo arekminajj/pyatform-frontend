@@ -1,8 +1,6 @@
 import { Challenge } from "@/types/Challange";
 import { getAllChallenges } from "@/lib/Challenge";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-
-import { getServerSession } from "next-auth";
+import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
 interface Props {
@@ -10,7 +8,7 @@ interface Props {
 }
 
 export default async function ChallengePage({ params }: Props) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session?.accessToken) {
     redirect("/api/auth/signin");

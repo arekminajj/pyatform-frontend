@@ -1,12 +1,10 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { updateUserProfile } from "@/lib/User";
-
 import type { NextRequest } from "next/server";
-import { getServerSession } from "next-auth";
+import { updateUserProfile } from "@/lib/User";
+import { auth } from "@/auth";
 import { updateUserProfileDto } from "@/types/dto/updateUserProfileDto";
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session?.accessToken) {
     return new Response("Unauthorized", { status: 401 });

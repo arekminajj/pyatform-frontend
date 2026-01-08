@@ -1,13 +1,11 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { User } from "@/types/User";
 import { getCurrentUserProfile } from "@/lib/User";
+import { auth } from "@/auth";
 
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 export default async function ProfilePage() {
-  const session = await getServerSession(authOptions);
-
+  const session = await auth();
   if (!session?.accessToken) {
     redirect("/api/auth/signin");
   }

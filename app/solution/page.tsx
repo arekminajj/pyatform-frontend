@@ -1,9 +1,8 @@
 import { Solution } from "@/types/Solution";
 import { getSolutions } from "@/lib/Solution";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { dateToString } from "@/utils/dateParser";
+import { auth } from "@/auth";
 
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 interface Props {
@@ -11,7 +10,7 @@ interface Props {
 }
 
 export default async function SolutionPage({ params }: Props) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session?.accessToken) {
     redirect("/api/auth/signin");

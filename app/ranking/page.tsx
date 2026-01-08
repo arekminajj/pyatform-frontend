@@ -1,12 +1,11 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { UserRanking } from "@/types/UserRanking";
 import { getUserRanking } from "@/lib/User";
+import { auth } from "@/auth";
 
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 export default async function RankingPage() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session?.accessToken) {
     redirect("/api/auth/signin");

@@ -2,9 +2,8 @@ import ChallengeWorkspace from "@/components/ChallengeWorkspace";
 import ChallengeSolutions from "@/components/ChallengeSolutions";
 import { Challenge } from "@/types/Challange";
 import { getChallenge } from "@/lib/Challenge";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { auth } from "@/auth";
 
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 import ReactMarkdown from "react-markdown";
@@ -19,8 +18,7 @@ interface Props {
 export default async function ChallengePage({ params }: Props) {
   const { id } = await params;
 
-  const session = await getServerSession(authOptions);
-
+  const session = await auth();
   if (!session?.accessToken) {
     redirect("/api/auth/signin");
   }

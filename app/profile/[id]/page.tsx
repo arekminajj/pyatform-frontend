@@ -1,12 +1,12 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Challenge } from "@/types/Challange";
 import { getAllChallenges } from "@/lib/Challenge";
 import { getUserProfile } from "@/lib/User";
 import Challenges from "@/components/Chllenges";
-
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
+import { auth } from "@/auth";
 import { User } from "@/types/User";
+
+import { redirect } from "next/navigation";
+
 
 interface Props {
   params: { id: string };
@@ -15,7 +15,7 @@ interface Props {
 export default async function ProfilePage({ params }: Props) {
   const { id } = await params;
 
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session?.accessToken) {
     redirect("/api/auth/signin");
